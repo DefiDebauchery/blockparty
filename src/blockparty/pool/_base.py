@@ -182,6 +182,29 @@ class ProviderSet:
             )
         return results
 
+    def supports_chain(self, chain_id: int, registry: ChainRegistry | None = None) -> bool:
+        """Check if any provider in this set supports the given chain.
+
+        Returns ``True`` if at least one credential matches the chain and the
+        chain has a compatible explorer in the registry.  Does **not** create
+        rate limit budgets or resolve full provider details — this is a
+        lightweight check suitable for filtering.
+
+        Args:
+            chain_id: The EVM chain ID to check.
+            registry: The chain registry for explorer lookup.
+        """
+        if not registry:
+            registry = ChainRegistry.load()
+        if chain_id not in registry:
+            return False
+        entry = registry.get(chain_id)
+        available_types = {e.type for e in entry.explorers}
+        return any(
+            cred.matches_chain(chain_id) and cred.type in available_types
+            for cred in self._credentials
+        )
+
     @classmethod
     def from_single(
         cls,
