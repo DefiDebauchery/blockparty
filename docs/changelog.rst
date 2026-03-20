@@ -1,5 +1,9 @@
 Changelog
 =========
+0.7.1
+-------------------
+- Add ``ProviderSet.supports_chain()`` to assist comprehension-based constructors
+
 0.7.0
 -------------------
 - Workflow fixes
