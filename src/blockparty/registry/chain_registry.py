@@ -22,6 +22,7 @@ from blockparty.exceptions import ChainNotFoundError, ExplorerNotFoundError
 from blockparty.models.registry import ChainEntry, ExplorerInfo
 
 _BUNDLED_DATA = Path(__file__).parent / "data" / "chains.json"
+_default_registry: ChainRegistry | None = None
 
 
 class ChainRegistry:
@@ -55,7 +56,17 @@ class ChainRegistry:
             FileNotFoundError: If *path* does not exist.
             ValueError: If the JSON is malformed or cannot be parsed.
         """
-        target = Path(path) if path is not None else _BUNDLED_DATA
+        global _default_registry
+
+        if path is None:
+            if _default_registry is None:
+                _default_registry = cls._load_from_path(_BUNDLED_DATA)
+            return _default_registry
+
+        return cls._load_from_path(Path(path))
+
+    @classmethod
+    def _load_from_path(cls, target: Path) -> ChainRegistry:
         raw = json.loads(target.read_text(encoding="utf-8"))
         entries = [ChainEntry.model_validate(item) for item in raw]
         return cls(entries)

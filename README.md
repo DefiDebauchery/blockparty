@@ -94,7 +94,7 @@ plans, Blockscout adaptive headers.
 ## Development
 
 ```bash
-git clone https://github.com/your-org/blockparty.git
+git clone https://github.com/defidebauchery/blockparty.git
 cd blockparty
 pip install -e ".[dev]"
 pytest

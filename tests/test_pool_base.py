@@ -109,6 +109,33 @@ class TestProviderSet:
         with pytest.raises(ChainNotFoundError):
             ps.resolve_for_chain(999999, mock_registry)
 
+    def test_supports_chain_true(self, mock_registry):
+        ps = ProviderSet(
+            [
+                ProviderCredential(type="etherscan", api_key="K"),
+                ProviderCredential(type="blockscout"),
+            ]
+        )
+        assert ps.supports_chain(1, mock_registry) is True
+
+    def test_supports_chain_false_not_in_registry(self, mock_registry):
+        ps = ProviderSet([ProviderCredential(type="etherscan")])
+        assert ps.supports_chain(999999, mock_registry) is False
+
+    def test_supports_chain_false_no_matching_provider(self, mock_registry):
+        """Chain 999 only has blockscout, but we only have etherscan."""
+        ps = ProviderSet([ProviderCredential(type="etherscan", api_key="K")])
+        assert ps.supports_chain(999, mock_registry) is False
+
+    def test_supports_chain_respects_chain_ids(self, mock_registry):
+        ps = ProviderSet(
+            [
+                ProviderCredential(type="etherscan", api_key="K", chain_ids=frozenset({8453})),
+            ]
+        )
+        assert ps.supports_chain(8453, mock_registry) is True
+        assert ps.supports_chain(1, mock_registry) is False
+
 
 class TestFallbackClassification:
     @pytest.mark.parametrize(
