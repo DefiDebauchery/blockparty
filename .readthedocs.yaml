@@ -4,12 +4,6 @@
 # Required
 version: 2
 
-# Set the OS, Python version, and other tools you might need
-build:
-  os: ubuntu-24.04
-  tools:
-    python: "3.13"
-
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
    configuration: docs/conf.py
@@ -17,10 +11,11 @@ sphinx:
 # Optionally, but recommended,
 # declare the Python requirements required to build your documentation
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - dev
-    - requirements: docs/requirements.txt
+build:
+   os: ubuntu-24.04
+   tools:
+      python: "3.13"
+   jobs:
+      install:
+         - pip install --upgrade pip
+         - pip install --group 'docs'

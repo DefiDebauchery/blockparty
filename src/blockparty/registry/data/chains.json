@@ -2084,6 +2084,21 @@
     ]
   },
   {
+    "chain_id": 870,
+    "name": "Autonomys EVM",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.auto-evm.mainnet.autonomys.xyz/api",
+        "frontend_url": "https://explorer.auto-evm.mainnet.autonomys.xyz/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "protofire"
+      }
+    ]
+  },
+  {
     "chain_id": 884,
     "name": "Bit Rock",
     "is_testnet": false,
@@ -4804,6 +4819,21 @@
     ]
   },
   {
+    "chain_id": 5031,
+    "name": "Somnia",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.somnia.network/api",
+        "frontend_url": "https://explorer.somnia.network/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "protofire"
+      }
+    ]
+  },
+  {
     "chain_id": 5101,
     "name": "Syndicate Frame",
     "is_testnet": false,
@@ -5635,6 +5665,21 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "blockscout"
+      }
+    ]
+  },
+  {
+    "chain_id": 8700,
+    "name": "Chronos Autonomys EVM",
+    "is_testnet": true,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.auto-evm.mainnet.autonomys.xyz/api",
+        "frontend_url": "https://explorer.auto-evm.mainnet.autonomys.xyz/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "protofire"
       }
     ]
   },
@@ -7583,7 +7628,7 @@
         "frontend_url": "https://shannon-explorer.somnia.network/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "self"
+        "hosted_by": "protofire"
       }
     ]
   },

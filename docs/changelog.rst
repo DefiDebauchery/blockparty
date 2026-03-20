@@ -1,7 +1,11 @@
 Changelog
 =========
+0.7.0
+-------------------
+- Workflow fixes
+- Refactoring in common classes
 
-0.1.0 (unreleased)
+0.6.0
 -------------------
 
 Initial release.

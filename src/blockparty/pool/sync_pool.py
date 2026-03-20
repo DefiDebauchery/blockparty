@@ -20,7 +20,6 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from blockparty._types import ExplorerType
 from blockparty.client.sync_client import SyncBlockpartyClient
 from blockparty.models.responses import (
     ContractSourceCode,
@@ -33,12 +32,11 @@ from blockparty.models.responses import (
     ObjectResponse,
     ScalarResponse,
 )
-from blockparty.pool._base import ProviderCredential, ProviderSet
+from blockparty.pool._base import BlockpartyPoolBase, ProviderCredential, ProviderSet
 from blockparty.registry.chain_registry import ChainRegistry
-from blockparty.urls.builder import ExplorerURLs
 
 
-class SyncBlockpartyPool:
+class SyncBlockpartyPool(BlockpartyPoolBase):
     """Sync connection pool — multi-chain, multi-credential, fallback-aware.
 
     Creates and caches :class:`SyncBlockpartyClient` instances per chain.
@@ -48,10 +46,12 @@ class SyncBlockpartyPool:
     Args:
         credentials: Ordered list of provider credentials.
         providers: A pre-built :class:`ProviderSet` (alternative to *credentials*).
-        http_backend: HTTP library to use: ``"aiohttp"`` (default) or ``"httpx"``.
+        http_backend: HTTP library to use: ``"requests"`` (default) or ``"httpx"``.
         cache_ttl: Response cache TTL passed to created clients.
         registry: Custom chain registry (bundled snapshot used if omitted).
     """
+
+    _client_class = SyncBlockpartyClient
 
     def __init__(
         self,
@@ -62,17 +62,13 @@ class SyncBlockpartyPool:
         cache_ttl: int = 30,
         registry: ChainRegistry | None = None,
     ) -> None:
-        if providers is not None:
-            self._providers = providers
-        elif credentials is not None:
-            self._providers = ProviderSet(credentials)
-        else:
-            raise ValueError("Either 'credentials' or 'providers' must be given.")
-
-        self._http_backend = http_backend
-        self._cache_ttl = cache_ttl
-        self._registry = registry or ChainRegistry.load()
-        self._clients: dict[int, SyncBlockpartyClient] = {}
+        super().__init__(
+            credentials,
+            providers=providers,
+            http_backend=http_backend,
+            cache_ttl=cache_ttl,
+            registry=registry,
+        )
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -89,41 +85,6 @@ class SyncBlockpartyPool:
 
     def __exit__(self, *exc: Any) -> None:
         self.close()
-
-    # ------------------------------------------------------------------
-    # Client cache
-    # ------------------------------------------------------------------
-
-    def _get_client(self, chain_id: int) -> SyncBlockpartyClient:
-        """Get or create a cached client for this chain."""
-        if chain_id not in self._clients:
-            self._clients[chain_id] = SyncBlockpartyClient(
-                chain_id=chain_id,
-                providers=self._providers,
-                http_backend=self._http_backend,
-                cache_ttl=self._cache_ttl,
-                registry=self._registry,
-            )
-        return self._clients[chain_id]
-
-    # ------------------------------------------------------------------
-    # URL builder
-    # ------------------------------------------------------------------
-
-    def urls(self, chain_id: int) -> ExplorerURLs:
-        """Get a URL builder for the preferred explorer on this chain."""
-        return self._get_client(chain_id).urls
-
-    def urls_for(self, chain_id: int, explorer_type: ExplorerType | None) -> ExplorerURLs:
-        """Get a URL builder for the explorer that actually served a response.
-
-        Usage::
-
-            resp = pool.get_internal_transactions(chain_id=8453, address="0x...")
-            urls = pool.urls_for(8453, resp.provider)
-            print(urls.tx(resp.result[0].hash))
-        """
-        return self._get_client(chain_id).urls_for(explorer_type)
 
     # ------------------------------------------------------------------
     # API endpoints — delegate to per-chain client

@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "blockparty"
-version = "0.6.0"
+dynamic = ["version"]
 description = "Unified Python client for Etherscan, Routescan and Blockscout EVM block explorer APIs"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -45,11 +45,22 @@ dev = [
     "ruff",
     "mypy",
 ]
+docs = [
+    "sphinx>=7",
+    "sphinx-autodoc-typehints>=2",
+    "furo",
+]
 
 [project.urls]
 Homepage = "https://github.com/DefiDebauchery/blockparty"
 Documentation = "https://blockparty.readthedocs.io/en/latest/"
 Issues = "https://github.com/DefiDebauchery/blockparty/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/blockparty/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/blockparty"]

@@ -5,20 +5,6 @@ A unified Python client for EVM block explorer APIs — **Etherscan**, **Routesc
 Normalizes responses across providers, supports both sync and async usage, provides
 automatic fallback across providers, and builds frontend explorer URLs.
 
-## Features
-
-- **Multi-provider support** — Etherscan, Routescan, and Blockscout behind one API
-- **Normalized responses** — Consistent Pydantic models regardless of which explorer answered
-- **Sync and async** — `SyncBlockpartyClient` and `AsyncBlockpartyClient`
-- **Provider fallback** — Clients try providers in order, automatically falling back on transient errors
-- **Shared rate limiting** — Per-`(provider, api_key)` token bucket shared across all clients via `ProviderSet`
-- **Pluggable HTTP backend** — aiohttp + requests (default) or httpx (optional)
-- **Transport injection** — Pass your own `aiohttp.ClientSession` or `httpx.AsyncClient`
-- **Response caching** — Configurable TTL, per-request `force_refresh` override
-- **Retry with backoff** — Exponential backoff + jitter on transient errors
-- **Frontend URL builder** — Generate explorer links for addresses, transactions, tokens, and blocks
-- **Bundled chain registry** — 600+ chains with offline lookup and CLI regeneration
-
 ## Installation
 
 ```bash
@@ -32,6 +18,20 @@ pip install "blockparty[httpx]"
 ```
 
 Requires **Python ≥ 3.10**.
+
+## Features
+
+- **Multi-provider support** — Etherscan, Routescan, and Blockscout behind one API
+- **Normalized responses** — Consistent Pydantic models regardless of which explorer answered
+- **Sync and async** — `SyncBlockpartyClient` and `AsyncBlockpartyClient`
+- **Provider fallback** — Clients try providers in order, automatically falling back on transient errors
+- **Shared rate limiting** — Per-`(provider, api_key)` token bucket shared across all clients via `ProviderSet`
+- **Pluggable HTTP backend** — aiohttp + requests (default) or httpx (optional)
+- **Transport injection** — Pass your own `aiohttp.ClientSession` or `httpx.AsyncClient`
+- **Response caching** — Configurable TTL, per-request `force_refresh` override
+- **Retry with backoff** — Exponential backoff + jitter on transient errors
+- **Frontend URL builder** — Generate explorer links for addresses, transactions, tokens, and blocks
+- **Bundled chain registry** — 600+ chains with offline lookup and CLI regeneration
 
 ## Quick Start
 

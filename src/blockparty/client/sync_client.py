@@ -18,10 +18,10 @@ With shared providers::
 
 from __future__ import annotations
 
-import warnings
 from typing import Any, Literal
 
 from blockparty._types import ExplorerType
+from blockparty.client._base import BlockpartyClientBase, emit_fallback_warning
 from blockparty.client._endpoints import (
     ENDPOINT_REGISTRY,
     build_call_kwargs,
@@ -68,19 +68,12 @@ from blockparty.models.responses import (
     TransactionReceiptStatus,
     TransactionStatus,
 )
-from blockparty.pool._base import (
-    ProviderSet,
-    ResolvedProvider,
-    is_auth_error,
-    is_fallback_eligible,
-)
+from blockparty.pool._base import ProviderSet, is_fallback_eligible
 from blockparty.ratelimit.tiers import TierSpec
 from blockparty.registry.chain_registry import ChainRegistry
-from blockparty.urls.builder import ExplorerURLs
-from blockparty.warnings import AuthFallbackWarning, FallbackWarning
 
 
-class SyncBlockpartyClient:
+class SyncBlockpartyClient(BlockpartyClientBase):
     """Sync client for EVM block explorer APIs.
 
     Supports provider fallback: when a :class:`~blockparty.pool._base.ProviderSet`
@@ -117,32 +110,17 @@ class SyncBlockpartyClient:
         cache_ttl: int = 30,
         registry: ChainRegistry | None = None,
     ) -> None:
-        self._chain_id = chain_id
-        self._http_backend = http_backend
-        self._user_transport = transport
-        self._registry = registry or ChainRegistry.load()
-        self._cache = ResponseCache(ttl=cache_ttl)
-
-        # Build or use the provided ProviderSet.
-        if providers is not None:
-            self._providers = providers
-        else:
-            self._providers = ProviderSet.from_single(
-                explorer_type,
-                api_key,
-                tier,
-                chain_id,
-                self._registry,
-            )
-
-        # Resolve providers for this chain (ordered, filtered).
-        self._resolved: list[ResolvedProvider] = self._providers.resolve_for_chain(
+        super().__init__(
             chain_id,
-            self._registry,
+            providers=providers,
+            explorer_type=explorer_type,
+            api_key=api_key,
+            tier=tier,
+            http_backend=http_backend,
+            transport=transport,
+            cache_ttl=cache_ttl,
+            registry=registry,
         )
-        if not self._resolved:
-            raise ExplorerNotFoundError(chain_id)
-
         # Transport — created lazily or wrapped from user-provided session.
         self._transport: SyncTransport | None = None
         self._owns_transport: bool = False
@@ -173,59 +151,6 @@ class SyncBlockpartyClient:
 
     def __exit__(self, *exc: Any) -> None:
         self.close()
-
-    # ------------------------------------------------------------------
-    # Properties
-    # ------------------------------------------------------------------
-
-    @property
-    def chain_id(self) -> int:
-        """The EVM chain ID this client is configured for."""
-        return self._chain_id
-
-    @property
-    def explorer_type(self) -> ExplorerType:
-        """The primary (first) explorer type for this client."""
-        return self._resolved[0].explorer_info.type
-
-    @property
-    def urls(self) -> ExplorerURLs:
-        """Get a URL builder for this client's primary (preferred) explorer."""
-        info = self._resolved[0].explorer_info
-        entry = self._registry.get(self._chain_id)
-        return ExplorerURLs(
-            explorer_type=info.type,
-            frontend_url=info.frontend_url,
-            frontend_url_vanity=info.frontend_url_vanity,
-            chain_id=self._chain_id,
-            is_testnet=entry.is_testnet,
-        )
-
-    def urls_for(self, explorer_type: ExplorerType | None) -> ExplorerURLs:
-        """Get a URL builder for a specific explorer type.
-
-        Useful after a fallback — pass ``response.provider`` to get URLs
-        matching the explorer that actually served the response::
-
-            resp = client.get_internal_transactions(address="0x...")
-            urls = client.urls_for(resp.provider)
-            print(urls.tx(resp.result[0].hash))
-
-        Falls back to the primary explorer if *explorer_type* is ``None``
-        or not found among the resolved providers.
-        """
-        if explorer_type is not None:
-            for rp in self._resolved:
-                if rp.credential.type == explorer_type:
-                    entry = self._registry.get(self._chain_id)
-                    return ExplorerURLs(
-                        explorer_type=rp.explorer_info.type,
-                        frontend_url=rp.explorer_info.frontend_url,
-                        frontend_url_vanity=rp.explorer_info.frontend_url_vanity,
-                        chain_id=self._chain_id,
-                        is_testnet=entry.is_testnet,
-                    )
-        return self.urls
 
     # ------------------------------------------------------------------
     # Core execute with fallback
@@ -279,11 +204,11 @@ class SyncBlockpartyClient:
                 if not is_fallback_eligible(exc):
                     raise
                 errors.append((rp.credential.type, exc))
-                _emit_fallback_warning(rp, self._chain_id, exc)
+                emit_fallback_warning(rp, self._chain_id, exc)
                 continue
             except TransportError as exc:
                 errors.append((rp.credential.type, exc))
-                _emit_fallback_warning(rp, self._chain_id, exc)
+                emit_fallback_warning(rp, self._chain_id, exc)
                 continue
 
             # Parse response — may raise ExplorerAPIError.
@@ -293,7 +218,7 @@ class SyncBlockpartyClient:
                 if not is_fallback_eligible(exc):
                     raise
                 errors.append((rp.credential.type, exc))
-                _emit_fallback_warning(rp, self._chain_id, exc)
+                emit_fallback_warning(rp, self._chain_id, exc)
                 continue
 
             self._cache.set(cache_key, data)
@@ -471,7 +396,12 @@ class SyncBlockpartyClient:
         force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch native token balance for one or more addresses (up to 20)."""
-        return self._execute("get_balance", force_refresh=force_refresh, address=address, tag=tag)
+        return self._execute(
+            "get_balance",
+            force_refresh=force_refresh,
+            address=address,
+            tag=tag,
+        )
 
     def get_historical_balance(
         self,
@@ -481,7 +411,12 @@ class SyncBlockpartyClient:
         force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch historical native balance at a specific block."""
-        return self._execute("get_historical_balance", force_refresh=force_refresh, address=address, block_no=block_no)
+        return self._execute(
+            "get_historical_balance",
+            force_refresh=force_refresh,
+            address=address,
+            block_no=block_no,
+        )
 
     def get_address_token_balance(
         self,
@@ -493,7 +428,11 @@ class SyncBlockpartyClient:
     ) -> ExplorerResponse[AddressTokenBalance]:
         """Fetch ERC-20 token holdings for an address."""
         return self._execute(
-            "get_address_token_balance", force_refresh=force_refresh, address=address, page=page, limit=limit
+            "get_address_token_balance",
+            force_refresh=force_refresh,
+            address=address,
+            page=page,
+            limit=limit,
         )
 
     def get_address_nft_inventory(
@@ -557,9 +496,18 @@ class SyncBlockpartyClient:
             sort=sort,
         )
 
-    def get_funded_by(self, address: str, *, force_refresh: bool = False) -> ObjectResponse[FundedBy]:
+    def get_funded_by(
+        self,
+        address: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[FundedBy]:
         """Fetch the address and transaction that first funded an EOA."""
-        return self._execute("get_funded_by", force_refresh=force_refresh, address=address)
+        return self._execute(
+            "get_funded_by",
+            force_refresh=force_refresh,
+            address=address,
+        )
 
     def get_deposit_transactions(
         self,
@@ -572,7 +520,12 @@ class SyncBlockpartyClient:
     ) -> ExplorerResponse[DepositTransaction]:
         """Fetch deposit transactions for an address (L2 chains)."""
         return self._execute(
-            "get_deposit_transactions", force_refresh=force_refresh, address=address, page=page, limit=limit, sort=sort
+            "get_deposit_transactions",
+            force_refresh=force_refresh,
+            address=address,
+            page=page,
+            limit=limit,
+            sort=sort,
         )
 
     def get_withdrawal_transactions(
@@ -604,56 +557,115 @@ class SyncBlockpartyClient:
     ) -> ExplorerResponse[PlasmaDeposit]:
         """Fetch Plasma deposit transactions for an address."""
         return self._execute(
-            "get_plasma_deposits", force_refresh=force_refresh, address=address, page=page, limit=limit
+            "get_plasma_deposits",
+            force_refresh=force_refresh,
+            address=address,
+            page=page,
+            limit=limit,
         )
 
     # ------------------------------------------------------------------
     # Contract endpoints
     # ------------------------------------------------------------------
 
-    def get_contract_abi(self, address: str, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_contract_abi(
+        self,
+        address: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Fetch the ABI for a verified smart contract."""
-        return self._execute("get_contract_abi", force_refresh=force_refresh, address=address)
+        return self._execute(
+            "get_contract_abi",
+            force_refresh=force_refresh,
+            address=address,
+        )
 
     def get_contract_source_code(
-        self, address: str, *, force_refresh: bool = False
+        self,
+        address: str,
+        *,
+        force_refresh: bool = False,
     ) -> ExplorerResponse[ContractSourceCode]:
         """Fetch source code for a verified smart contract."""
-        return self._execute("get_contract_source_code", force_refresh=force_refresh, address=address)
+        return self._execute(
+            "get_contract_source_code",
+            force_refresh=force_refresh,
+            address=address,
+        )
 
     def get_contract_creation(
-        self, contract_addresses: str | list[str], *, force_refresh: bool = False
+        self,
+        contract_addresses: str | list[str],
+        *,
+        force_refresh: bool = False,
     ) -> ExplorerResponse[ContractCreation]:
         """Fetch contract creator and creation tx (up to 5 addresses)."""
         return self._execute(
-            "get_contract_creation", force_refresh=force_refresh, contract_addresses=contract_addresses
+            "get_contract_creation",
+            force_refresh=force_refresh,
+            contract_addresses=contract_addresses,
         )
 
     # ------------------------------------------------------------------
     # Transaction endpoints
     # ------------------------------------------------------------------
 
-    def get_transaction_status(self, txhash: str, *, force_refresh: bool = False) -> ObjectResponse[TransactionStatus]:
+    def get_transaction_status(
+        self,
+        txhash: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[TransactionStatus]:
         """Check contract execution status of a transaction."""
-        return self._execute("get_transaction_status", force_refresh=force_refresh, txhash=txhash)
+        return self._execute(
+            "get_transaction_status",
+            force_refresh=force_refresh,
+            txhash=txhash,
+        )
 
     def get_transaction_receipt_status(
-        self, txhash: str, *, force_refresh: bool = False
+        self,
+        txhash: str,
+        *,
+        force_refresh: bool = False,
     ) -> ObjectResponse[TransactionReceiptStatus]:
         """Check transaction receipt status."""
-        return self._execute("get_transaction_receipt_status", force_refresh=force_refresh, txhash=txhash)
+        return self._execute(
+            "get_transaction_receipt_status",
+            force_refresh=force_refresh,
+            txhash=txhash,
+        )
 
     # ------------------------------------------------------------------
     # Block endpoints
     # ------------------------------------------------------------------
 
-    def get_block_reward(self, block_no: int, *, force_refresh: bool = False) -> ObjectResponse[BlockReward]:
+    def get_block_reward(
+        self,
+        block_no: int,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[BlockReward]:
         """Fetch block and uncle rewards by block number."""
-        return self._execute("get_block_reward", force_refresh=force_refresh, block_no=block_no)
+        return self._execute(
+            "get_block_reward",
+            force_refresh=force_refresh,
+            block_no=block_no,
+        )
 
-    def get_block_countdown(self, block_no: int, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_block_countdown(
+        self,
+        block_no: int,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Fetch estimated countdown time to a block."""
-        return self._execute("get_block_countdown", force_refresh=force_refresh, block_no=block_no)
+        return self._execute(
+            "get_block_countdown",
+            force_refresh=force_refresh,
+            block_no=block_no,
+        )
 
     def get_block_no_by_time(
         self,
@@ -663,7 +675,12 @@ class SyncBlockpartyClient:
         force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch block number mined at a specific timestamp."""
-        return self._execute("get_block_no_by_time", force_refresh=force_refresh, timestamp=timestamp, closest=closest)
+        return self._execute(
+            "get_block_no_by_time",
+            force_refresh=force_refresh,
+            timestamp=timestamp,
+            closest=closest,
+        )
 
     # ------------------------------------------------------------------
     # Logs endpoints
@@ -715,7 +732,12 @@ class SyncBlockpartyClient:
     # ------------------------------------------------------------------
 
     def get_token_balance(
-        self, contract_address: str, address: str, tag: str = "latest", *, force_refresh: bool = False
+        self,
+        contract_address: str,
+        address: str,
+        tag: str = "latest",
+        *,
+        force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch ERC-20 token balance for an address."""
         return self._execute(
@@ -727,7 +749,12 @@ class SyncBlockpartyClient:
         )
 
     def get_historical_token_balance(
-        self, contract_address: str, address: str, block_no: int, *, force_refresh: bool = False
+        self,
+        contract_address: str,
+        address: str,
+        block_no: int,
+        *,
+        force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch historical ERC-20 token balance at a specific block."""
         return self._execute(
@@ -738,12 +765,25 @@ class SyncBlockpartyClient:
             block_no=block_no,
         )
 
-    def get_token_supply(self, contract_address: str, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_token_supply(
+        self,
+        contract_address: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Fetch total supply of an ERC-20 token."""
-        return self._execute("get_token_supply", force_refresh=force_refresh, contract_address=contract_address)
+        return self._execute(
+            "get_token_supply",
+            force_refresh=force_refresh,
+            contract_address=contract_address,
+        )
 
     def get_historical_token_supply(
-        self, contract_address: str, block_no: int, *, force_refresh: bool = False
+        self,
+        contract_address: str,
+        block_no: int,
+        *,
+        force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch historical total supply of an ERC-20 token at a block."""
         return self._execute(
@@ -754,7 +794,12 @@ class SyncBlockpartyClient:
         )
 
     def get_token_holder_list(
-        self, contract_address: str, page: int = 1, limit: int = 10, *, force_refresh: bool = False
+        self,
+        contract_address: str,
+        page: int = 1,
+        limit: int = 10,
+        *,
+        force_refresh: bool = False,
     ) -> ExplorerResponse[TokenHolderEntry]:
         """Fetch list of token holders for a contract."""
         return self._execute(
@@ -765,51 +810,105 @@ class SyncBlockpartyClient:
             limit=limit,
         )
 
-    def get_token_holder_count(self, contract_address: str, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_token_holder_count(
+        self,
+        contract_address: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Fetch count of token holders for a contract."""
-        return self._execute("get_token_holder_count", force_refresh=force_refresh, contract_address=contract_address)
+        return self._execute(
+            "get_token_holder_count",
+            force_refresh=force_refresh,
+            contract_address=contract_address,
+        )
 
-    def get_token_info(self, contract_address: str, *, force_refresh: bool = False) -> ExplorerResponse[TokenInfo]:
+    def get_token_info(
+        self,
+        contract_address: str,
+        *,
+        force_refresh: bool = False,
+    ) -> ExplorerResponse[TokenInfo]:
         """Fetch token project info and social links."""
-        return self._execute("get_token_info", force_refresh=force_refresh, contract_address=contract_address)
+        return self._execute(
+            "get_token_info",
+            force_refresh=force_refresh,
+            contract_address=contract_address,
+        )
 
     def get_top_token_holders(
-        self, contract_address: str, limit: int = 10, *, force_refresh: bool = False
+        self,
+        contract_address: str,
+        limit: int = 10,
+        *,
+        force_refresh: bool = False,
     ) -> ExplorerResponse[TopTokenHolder]:
         """Fetch top token holders for a contract."""
         return self._execute(
-            "get_top_token_holders", force_refresh=force_refresh, contract_address=contract_address, limit=limit
+            "get_top_token_holders",
+            force_refresh=force_refresh,
+            contract_address=contract_address,
+            limit=limit,
         )
 
     # ------------------------------------------------------------------
     # Gas tracker endpoints
     # ------------------------------------------------------------------
 
-    def get_gas_oracle(self, *, force_refresh: bool = False) -> ObjectResponse[GasOracle]:
+    def get_gas_oracle(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[GasOracle]:
         """Fetch current gas price recommendations."""
         return self._execute("get_gas_oracle", force_refresh=force_refresh)
 
-    def get_gas_estimate(self, gas_price: int, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_gas_estimate(
+        self,
+        gas_price: int,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Estimate confirmation time for a given gas price."""
-        return self._execute("get_gas_estimate", force_refresh=force_refresh, gas_price=gas_price)
+        return self._execute(
+            "get_gas_estimate",
+            force_refresh=force_refresh,
+            gas_price=gas_price,
+        )
 
     # ------------------------------------------------------------------
     # Stats endpoints
     # ------------------------------------------------------------------
 
-    def get_eth_price(self, *, force_refresh: bool = False) -> ObjectResponse[EthPrice]:
+    def get_eth_price(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[EthPrice]:
         """Fetch latest native token price."""
         return self._execute("get_eth_price", force_refresh=force_refresh)
 
-    def get_eth_supply(self, *, force_refresh: bool = False) -> ScalarResponse:
+    def get_eth_supply(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ScalarResponse:
         """Fetch current circulating supply of Ether."""
         return self._execute("get_eth_supply", force_refresh=force_refresh)
 
-    def get_eth_supply2(self, *, force_refresh: bool = False) -> ObjectResponse[EthSupply2]:
+    def get_eth_supply2(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[EthSupply2]:
         """Fetch extended Ether supply including staking and burns."""
         return self._execute("get_eth_supply2", force_refresh=force_refresh)
 
-    def get_node_count(self, *, force_refresh: bool = False) -> ObjectResponse[NodeCount]:
+    def get_node_count(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ObjectResponse[NodeCount]:
         """Fetch total Ethereum node count."""
         return self._execute("get_node_count", force_refresh=force_refresh)
 
@@ -863,23 +962,17 @@ class SyncBlockpartyClient:
     ) -> ExplorerResponse[DailyStatistic]:
         """Fetch historical Ether price data."""
         return self._execute(
-            "get_eth_daily_price", force_refresh=force_refresh, start_date=start_date, end_date=end_date, sort=sort
+            "get_eth_daily_price",
+            force_refresh=force_refresh,
+            start_date=start_date,
+            end_date=end_date,
+            sort=sort,
         )
 
-    def get_chainlist(self, *, force_refresh: bool = False) -> ExplorerResponse[ChainListEntry]:
+    def get_chainlist(
+        self,
+        *,
+        force_refresh: bool = False,
+    ) -> ExplorerResponse[ChainListEntry]:
         """Fetch the list of supported Etherscan chains."""
         return self._execute("get_chainlist", force_refresh=force_refresh)
-
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-
-def _emit_fallback_warning(rp: ResolvedProvider, chain_id: int, exc: Exception) -> None:
-    warning_cls = AuthFallbackWarning if is_auth_error(exc) else FallbackWarning
-    warnings.warn(
-        f"{rp.credential.type} failed for chain {chain_id}: {exc}",
-        warning_cls,
-        stacklevel=4,
-    )

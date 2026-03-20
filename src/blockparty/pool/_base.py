@@ -1,12 +1,16 @@
-"""Shared pool logic: credentials, provider sets, and fallback classification.
+"""Shared pool logic: credentials, provider sets, fallback, and pool base class.
 
 :class:`ProviderCredential` defines a single provider + key + tier.
 :class:`ProviderSet` holds an ordered list of credentials with a shared
 :class:`~blockparty.ratelimit.registry.RateLimitRegistry`, resolving which
 providers are eligible for a given chain and managing rate limit budgets.
+:class:`BlockpartyPoolBase` provides shared init, URL building, and client
+caching for async and sync pool subclasses.
 """
 
 from __future__ import annotations
+
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -23,6 +27,7 @@ from blockparty.ratelimit.budget import RateLimitBudget
 from blockparty.ratelimit.registry import RateLimitRegistry
 from blockparty.ratelimit.tiers import TierSpec
 from blockparty.registry.chain_registry import ChainRegistry
+from blockparty.urls.builder import ExplorerURLs
 
 # ---------------------------------------------------------------------------
 # Backend singletons (stateless — safe to share)
@@ -250,3 +255,70 @@ def is_fallback_eligible(error: Exception) -> bool:
 def is_auth_error(error: Exception) -> bool:
     """Check if an error is an authentication issue (for warning classification)."""
     return isinstance(error, InvalidAPIKeyError)
+
+
+# ---------------------------------------------------------------------------
+# Pool base class
+# ---------------------------------------------------------------------------
+
+
+class BlockpartyPoolBase:
+    """Shared base for async and sync connection pools.
+
+    Handles provider/credential resolution, client caching, and URL building.
+    Subclasses add lifecycle methods (``close``, context managers) and typed
+    endpoint methods that delegate to the cached clients.
+
+    The ``_client_class`` class attribute must be set by subclasses to the
+    concrete client type (``AsyncBlockpartyClient`` or ``SyncBlockpartyClient``).
+    """
+
+    _client_class: type[Any]  # Set by subclasses.
+
+    def __init__(
+        self,
+        credentials: list[ProviderCredential] | None = None,
+        *,
+        providers: ProviderSet | None = None,
+        http_backend: str = "",
+        cache_ttl: int = 30,
+        registry: ChainRegistry | None = None,
+    ) -> None:
+        if providers is not None:
+            self._providers = providers
+        elif credentials is not None:
+            self._providers = ProviderSet(credentials)
+        else:
+            raise ValueError("Either 'credentials' or 'providers' must be given.")
+
+        self._http_backend = http_backend
+        self._cache_ttl = cache_ttl
+        self._registry = registry or ChainRegistry.load()
+        self._clients: dict[int, Any] = {}
+
+    def _get_client(self, chain_id: int) -> Any:
+        """Get or create a cached client for this chain."""
+        if chain_id not in self._clients:
+            self._clients[chain_id] = self._client_class(
+                chain_id=chain_id,
+                providers=self._providers,
+                http_backend=self._http_backend,
+                cache_ttl=self._cache_ttl,
+                registry=self._registry,
+            )
+        return self._clients[chain_id]
+
+    def urls(self, chain_id: int) -> ExplorerURLs:
+        """Get a URL builder for the preferred explorer on this chain."""
+        return self._get_client(chain_id).urls
+
+    def urls_for(self, chain_id: int, explorer_type: ExplorerType | None) -> ExplorerURLs:
+        """Get a URL builder for the explorer that actually served a response.
+
+        Usage::
+
+            resp = pool.get_internal_transactions(chain_id=8453, address="0x...")
+            urls = pool.urls_for(8453, resp.provider)
+            print(urls.tx(resp.result[0].hash))
+        """
+        return self._get_client(chain_id).urls_for(explorer_type)
