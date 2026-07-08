@@ -31,21 +31,6 @@
     ]
   },
   {
-    "chain_id": 5,
-    "name": "Ethereum Göerli",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://eth-goerli.blockscout.com/api",
-        "frontend_url": "https://eth-goerli.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
     "chain_id": 7,
     "name": "Thai Chain",
     "is_testnet": false,
@@ -88,21 +73,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
-    "chain_id": 13,
-    "name": "Colossus Devnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/13/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -289,7 +259,7 @@
   },
   {
     "chain_id": 42,
-    "name": "Lukso",
+    "name": "LUKSO",
     "is_testnet": false,
     "explorers": [
       {
@@ -468,36 +438,6 @@
     ]
   },
   {
-    "chain_id": 88,
-    "name": "Viction Network",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://viction.blockscout.com/api",
-        "frontend_url": "https://viction.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
-    "chain_id": 89,
-    "name": "Viction Testnet Network",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://viction-testnet.blockscout.com/api",
-        "frontend_url": "https://viction-testnet.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
     "chain_id": 94,
     "name": "SwissDLT",
     "is_testnet": false,
@@ -617,11 +557,11 @@
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://www.shibariumscan.io/api",
-        "frontend_url": "https://www.shibariumscan.io/",
+        "api_url": "https://shibariumscan.io/api",
+        "frontend_url": "https://shibariumscan.io/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "self"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -785,6 +725,21 @@
     ]
   },
   {
+    "chain_id": 138,
+    "name": "DeFi Oracle Meta Mainnet",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://blockscout.defi-oracle.io/api",
+        "frontend_url": "https://blockscout.defi-oracle.io/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
     "chain_id": 140,
     "name": "Data Lake Chain",
     "is_testnet": false,
@@ -898,36 +853,6 @@
     ]
   },
   {
-    "chain_id": 164,
-    "name": "Nomina",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/164/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 166,
-    "name": "Nomina",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/166/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 169,
     "name": "Manta Pacific",
     "is_testnet": false,
@@ -1007,14 +932,6 @@
     "name": "Mint Chain",
     "is_testnet": false,
     "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/185/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://185.thesuperscan.io",
-        "status": null,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://explorer.mintchain.io/api",
@@ -1461,21 +1378,6 @@
     ]
   },
   {
-    "chain_id": 357,
-    "name": "Pulsar",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/357/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://pulsarscan.com",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 360,
     "name": "Shape",
     "is_testnet": false,
@@ -1577,21 +1479,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 420,
-    "name": "OP Goerli",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://optimism-goerli.blockscout.com/api",
-        "frontend_url": "https://optimism-goerli.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
       }
     ]
   },
@@ -1730,11 +1617,11 @@
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://evm-testnet.flowscan.io/api",
-        "frontend_url": "https://evm-testnet.flowscan.io/",
+        "api_url": "https://testnet.evm.flow.com/api",
+        "frontend_url": "https://testnet.evm.flow.com/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "self"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -1904,17 +1791,17 @@
     ]
   },
   {
-    "chain_id": 690,
-    "name": "Redstone",
+    "chain_id": 677,
+    "name": "BOT Chain Mainnet",
     "is_testnet": false,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://explorer.redstone.xyz/api",
-        "frontend_url": "https://explorer.redstone.xyz/",
+        "api_url": "https://scan.botchain.ai/api",
+        "frontend_url": "https://scan.botchain.ai/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "blockscout"
+        "hosted_by": "self"
       }
     ]
   },
@@ -1965,16 +1852,16 @@
   },
   {
     "chain_id": 747,
-    "name": "Alvey Chain",
+    "name": "Flow Mainnet",
     "is_testnet": false,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://alveyscan.com/api",
-        "frontend_url": "https://alveyscan.com/",
+        "api_url": "https://evm.flow.com/api",
+        "frontend_url": "https://evm.flow.com/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "self"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -2084,6 +1971,21 @@
     ]
   },
   {
+    "chain_id": 869,
+    "name": "World Mobile",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.worldmobile.io/api",
+        "frontend_url": "https://explorer.worldmobile.io/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "blockscout"
+      }
+    ]
+  },
+  {
     "chain_id": 870,
     "name": "Autonomys EVM",
     "is_testnet": false,
@@ -2163,14 +2065,6 @@
     "name": "Mode Sepolia Testnet",
     "is_testnet": true,
     "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/919/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://testnet.modescan.io",
-        "status": null,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://sepolia.explorer.mode.network/api",
@@ -2446,36 +2340,6 @@
         "type": "blockscout",
         "api_url": "https://explorer.pointnetwork.io/api",
         "frontend_url": "https://explorer.pointnetwork.io/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 1111,
-    "name": "Moonchain",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://explorer.moonchain.com/api",
-        "frontend_url": "https://explorer.moonchain.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 1114,
-    "name": "Oasys HOME Verse Mainnet",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://explorer.oasys.homeverse.games/api",
-        "frontend_url": "https://explorer.oasys.homeverse.games/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
@@ -2770,13 +2634,13 @@
   },
   {
     "chain_id": 1315,
-    "name": "Story Aeneid",
+    "name": "DATA Network Aeneid",
     "is_testnet": true,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://aeneid.storyscan.io/api",
-        "frontend_url": "https://aeneid.storyscan.io/",
+        "api_url": "https://aeneid.datanetscan.io/api",
+        "frontend_url": "https://aeneid.datanetscan.io/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "blockscout"
@@ -2994,29 +2858,14 @@
     ]
   },
   {
-    "chain_id": 1512,
-    "name": "Story Internal Devnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://devnet.storyscan.xyz/api",
-        "frontend_url": "https://devnet.storyscan.xyz/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "self"
-      }
-    ]
-  },
-  {
     "chain_id": 1514,
-    "name": "Story",
+    "name": "DATA Network",
     "is_testnet": false,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://www.storyscan.io/api",
-        "frontend_url": "https://www.storyscan.io/",
+        "api_url": "https://www.datanetscan.io/api",
+        "frontend_url": "https://www.datanetscan.io/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "blockscout"
@@ -3580,16 +3429,16 @@
   },
   {
     "chain_id": 2020,
-    "name": "Alastria",
+    "name": "Ronin Mainnet",
     "is_testnet": false,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://b-network.alastria.izer.tech/api",
-        "frontend_url": "https://b-network.alastria.izer.tech/",
+        "api_url": "https://explorer.roninchain.com/api",
+        "frontend_url": "https://explorer.roninchain.com/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "self"
+        "hosted_by": "conduit"
       }
     ]
   },
@@ -3650,21 +3499,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 2044,
-    "name": "Shrapnel",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/2044/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://2044.snowtrace.io",
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -4090,7 +3924,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/mainnet/evm/3011/etherscan/api",
         "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://explorer.playa3ull.games",
+        "frontend_url_vanity": "https://playa3ull.routescan.io",
         "status": null,
         "hosted_by": null
       }
@@ -4105,9 +3939,24 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/3012/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://3012.testnet.snowtrace.io",
+        "frontend_url_vanity": "https://playa3ull.testnet.routescan.io",
         "status": null,
         "hosted_by": null
+      }
+    ]
+  },
+  {
+    "chain_id": 3018,
+    "name": "AICChain Mainnet",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://scan.aicchain.io/api",
+        "frontend_url": "https://scan.aicchain.io/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
       }
     ]
   },
@@ -4225,15 +4074,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/3636/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://testnet.botanixscan.io",
-        "status": null,
-        "hosted_by": null
-      },
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/3636/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://testnet.botanixscan.io",
+        "frontend_url_vanity": null,
         "status": null,
         "hosted_by": null
       }
@@ -4405,6 +4246,21 @@
     ]
   },
   {
+    "chain_id": 3946,
+    "name": "Nexus Mainnet",
+    "is_testnet": true,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.nexus.xyz/api",
+        "frontend_url": "https://explorer.nexus.xyz/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "blockscout"
+      }
+    ]
+  },
+  {
     "chain_id": 4024,
     "name": "TONSquare",
     "is_testnet": true,
@@ -4506,21 +4362,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 4313,
-    "name": "Artery",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/4313/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://4313.snowtrace.io",
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -4713,6 +4554,21 @@
     ]
   },
   {
+    "chain_id": 4663,
+    "name": "Robinhood Chain",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://robinhoodchain.blockscout.com/api",
+        "frontend_url": "https://robinhoodchain.blockscout.com/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "blockscout"
+      }
+    ]
+  },
+  {
     "chain_id": 4801,
     "name": "World Sepolia Testnet",
     "is_testnet": true,
@@ -4782,7 +4638,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/mainnet/evm/5000/etherscan/api",
         "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://mantlescan.info",
+        "frontend_url_vanity": "https://5000.routescan.io",
         "status": null,
         "hosted_by": null
       }
@@ -4913,14 +4769,6 @@
     "name": "Superseed",
     "is_testnet": false,
     "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/5330/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://seedscan.org",
-        "status": null,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://explorer.superseed.xyz/api",
@@ -5225,17 +5073,17 @@
     ]
   },
   {
-    "chain_id": 6398,
-    "name": "Everclear Testnet",
-    "is_testnet": true,
+    "chain_id": 6497,
+    "name": "Awaji",
+    "is_testnet": false,
     "explorers": [
       {
         "type": "blockscout",
-        "api_url": "https://scan.testnet.everclear.org/api",
-        "frontend_url": "https://scan.testnet.everclear.org/",
+        "api_url": "https://awaji.blockscout.com/api",
+        "frontend_url": "https://awaji.blockscout.com/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "gelato-raas"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -5319,6 +5167,21 @@
         "frontend_url_vanity": "https://testnet.nibiscan.io",
         "status": null,
         "hosted_by": null
+      }
+    ]
+  },
+  {
+    "chain_id": 6923,
+    "name": "LUST Chain",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.lustchain.org/api",
+        "frontend_url": "https://explorer.lustchain.org/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
       }
     ]
   },
@@ -5518,21 +5381,6 @@
     ]
   },
   {
-    "chain_id": 8008,
-    "name": "Polynomial",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/8008/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 8021,
     "name": "Numine",
     "is_testnet": false,
@@ -5579,7 +5427,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/mainnet/evm/8227/etherscan/api",
         "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://8227.snowtrace.io",
         "status": null,
         "hosted_by": null
       }
@@ -5665,6 +5513,21 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "blockscout"
+      }
+    ]
+  },
+  {
+    "chain_id": 8472,
+    "name": "MYRX-MAINNET",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.myrxwallet.io/api",
+        "frontend_url": "https://explorer.myrxwallet.io/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
       }
     ]
   },
@@ -6045,21 +5908,6 @@
     ]
   },
   {
-    "chain_id": 9897,
-    "name": "Arena-Z-Testnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://testnet-explorer.arena-z.gg/api",
-        "frontend_url": "https://testnet-explorer.arena-z.gg/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "gelato-raas"
-      }
-    ]
-  },
-  {
     "chain_id": 9898,
     "name": "Larissa Chain",
     "is_testnet": false,
@@ -6435,21 +6283,6 @@
     ]
   },
   {
-    "chain_id": 12150,
-    "name": "QChain",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/12150/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://12150.snowtrace.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 12216,
     "name": "L2 Protocol",
     "is_testnet": false,
@@ -6743,17 +6576,9 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/17000/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://17000.next.routescan.io",
         "status": null,
         "hosted_by": null
-      },
-      {
-        "type": "blockscout",
-        "api_url": "https://eth-holesky.blockscout.com/api",
-        "frontend_url": "https://eth-holesky.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
       }
     ]
   },
@@ -6803,6 +6628,21 @@
     ]
   },
   {
+    "chain_id": 18686,
+    "name": "Moonchain",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.moonchain.com/api",
+        "frontend_url": "https://explorer.moonchain.com/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
     "chain_id": 18880,
     "name": "EXPchain Testnet",
     "is_testnet": true,
@@ -6811,6 +6651,21 @@
         "type": "blockscout",
         "api_url": "https://blockscout-testnet.expchain.ai/api",
         "frontend_url": "https://blockscout-testnet.expchain.ai/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 19011,
+    "name": "Oasys HOME Verse Mainnet",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.oasys.homeverse.games/api",
+        "frontend_url": "https://explorer.oasys.homeverse.games/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
@@ -6998,21 +6853,6 @@
     ]
   },
   {
-    "chain_id": 28530,
-    "name": "Blockticity",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/28530/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://28530.snowtrace.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 28802,
     "name": "Incentiv Testnet 2",
     "is_testnet": true,
@@ -7039,6 +6879,21 @@
         "frontend_url_vanity": "https://sepolia.testnet.bobascan.com",
         "status": null,
         "hosted_by": null
+      }
+    ]
+  },
+  {
+    "chain_id": 30181,
+    "name": "AICChain Testnet",
+    "is_testnet": true,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://testscan.aicchain.io/api",
+        "frontend_url": "https://testscan.aicchain.io/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
       }
     ]
   },
@@ -7139,14 +6994,6 @@
     "is_testnet": false,
     "explorers": [
       {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/34443/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://modescan.io",
-        "status": null,
-        "hosted_by": null
-      },
-      {
         "type": "blockscout",
         "api_url": "https://explorer.mode.network/api",
         "frontend_url": "https://explorer.mode.network/",
@@ -7165,6 +7012,21 @@
         "type": "blockscout",
         "api_url": "https://explorer.q.org/api",
         "frontend_url": "https://explorer.q.org/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 38833,
+    "name": "Igra Network",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.igralabs.com/api",
+        "frontend_url": "https://explorer.igralabs.com/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
@@ -7272,14 +7134,6 @@
         "frontend_url": "https://arbiscan.io/",
         "frontend_url_vanity": null,
         "status": 1,
-        "hosted_by": null
-      },
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/42161/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://42161.next.routescan.io",
-        "status": null,
         "hosted_by": null
       },
       {
@@ -7528,17 +7382,17 @@
     ]
   },
   {
-    "chain_id": 47208,
-    "name": "Armada",
+    "chain_id": 46630,
+    "name": "Robinhood Chain Testnet",
     "is_testnet": true,
     "explorers": [
       {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/47208/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://47208.testnet.snowtrace.io",
+        "type": "blockscout",
+        "api_url": "https://explorer.testnet.chain.robinhood.com/api",
+        "frontend_url": "https://explorer.testnet.chain.robinhood.com/",
+        "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": null
+        "hosted_by": "self-hosted"
       }
     ]
   },
@@ -7581,7 +7435,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/48795/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://48795.next.routescan.io",
         "status": null,
         "hosted_by": null
       }
@@ -7599,21 +7453,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 50104,
-    "name": "Sophon",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/50104/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -7644,21 +7483,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 51010,
-    "name": "Metabased Stratos",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://metabased-stratos.explorer.alchemy.com/api",
-        "frontend_url": "https://metabased-stratos.explorer.alchemy.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "alchemy"
       }
     ]
   },
@@ -7712,14 +7536,6 @@
     "name": "Superseed Sepolia",
     "is_testnet": true,
     "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/53302/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://sepolia.seedscan.org",
-        "status": null,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://sepolia-explorer.superseed.xyz/api",
@@ -7837,7 +7653,7 @@
   },
   {
     "chain_id": 55197,
-    "name": "Egmtester",
+    "name": "EGMTester",
     "is_testnet": true,
     "explorers": [
       {
@@ -7881,21 +7697,6 @@
     ]
   },
   {
-    "chain_id": 56288,
-    "name": "Boba BNB",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/56288/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 57000,
     "name": "Syscoin Rollux Testnet",
     "is_testnet": true,
@@ -7915,14 +7716,6 @@
     "name": "Ink",
     "is_testnet": false,
     "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/57073/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://inkonscan.xyz",
-        "status": null,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://explorer.inkonchain.com/api",
@@ -7968,21 +7761,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 59932,
-    "name": "Insomnia",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/59932/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://59932.testnet.snowtrace.io",
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -8043,21 +7821,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 61587,
-    "name": "Growth",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/61587/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://61587.snowtrace.io",
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -8362,21 +8125,6 @@
     ]
   },
   {
-    "chain_id": 80008,
-    "name": "Polynomial Sepolia",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/80008/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 80069,
     "name": "Berachain Bepolia Testnet",
     "is_testnet": true,
@@ -8521,21 +8269,6 @@
     ]
   },
   {
-    "chain_id": 84531,
-    "name": "Base Göerli",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://base-goerli.blockscout.com/api",
-        "frontend_url": "https://base-goerli.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
     "chain_id": 84532,
     "name": "Base Sepolia Testnet",
     "is_testnet": true,
@@ -8675,21 +8408,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 97433,
-    "name": "Growth",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/97433/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://97433.testnet.snowtrace.io",
-        "status": null,
-        "hosted_by": null
       }
     ]
   },
@@ -8994,21 +8712,6 @@
     ]
   },
   {
-    "chain_id": 128123,
-    "name": "Etherlink Testnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://testnet.explorer.etherlink.com/api",
-        "frontend_url": "https://testnet.explorer.etherlink.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
-      }
-    ]
-  },
-  {
     "chain_id": 132902,
     "name": "Form",
     "is_testnet": true,
@@ -9100,7 +8803,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/167008/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://167008.next.routescan.io",
         "status": null,
         "hosted_by": null
       }
@@ -9115,7 +8818,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/167009/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://167009.next.routescan.io",
         "status": null,
         "hosted_by": null
       }
@@ -9238,6 +8941,21 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 202601,
+    "name": "Ronin Saigon Testnet",
+    "is_testnet": true,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://saigon-explorer.roninchain.com/api",
+        "frontend_url": "https://saigon-explorer.roninchain.com/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "conduit"
       }
     ]
   },
@@ -9402,7 +9120,7 @@
         "frontend_url": "https://basecamp.cloud.blockscout.com/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "gelato-raas"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -9604,17 +9322,9 @@
   },
   {
     "chain_id": 534351,
-    "name": "Scroll Sepolia Testnet",
+    "name": "Scroll Testnet",
     "is_testnet": true,
     "explorers": [
-      {
-        "type": "etherscan",
-        "api_url": "https://api.etherscan.io/v2/api?chainid=534351",
-        "frontend_url": "https://sepolia.scrollscan.com/",
-        "frontend_url_vanity": null,
-        "status": 1,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://scroll-sepolia.blockscout.com/api",
@@ -9627,17 +9337,9 @@
   },
   {
     "chain_id": 534352,
-    "name": "Scroll Mainnet",
+    "name": "Scroll",
     "is_testnet": false,
     "explorers": [
-      {
-        "type": "etherscan",
-        "api_url": "https://api.etherscan.io/v2/api?chainid=534352",
-        "frontend_url": "https://scrollscan.com/",
-        "frontend_url_vanity": null,
-        "status": 1,
-        "hosted_by": null
-      },
       {
         "type": "blockscout",
         "api_url": "https://scroll.blockscout.com/api",
@@ -9845,6 +9547,21 @@
     ]
   },
   {
+    "chain_id": 685689,
+    "name": "Gensyn",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://gensyn-mainnet.explorer.alchemy.com/api",
+        "frontend_url": "https://gensyn-mainnet.explorer.alchemy.com/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "alchemy"
+      }
+    ]
+  },
+  {
     "chain_id": 688688,
     "name": "Pharos Testnet",
     "is_testnet": true,
@@ -9856,21 +9573,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 695569,
-    "name": "Pyrope Testnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://explorer.pyropechain.com/api",
-        "frontend_url": "https://explorer.pyropechain.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
       }
     ]
   },
@@ -9978,14 +9680,6 @@
     "is_testnet": true,
     "explorers": [
       {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/763373/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://sepolia.inkonscan.xyz",
-        "status": null,
-        "hosted_by": null
-      },
-      {
         "type": "blockscout",
         "api_url": "https://explorer-sepolia.inkonchain.com/api",
         "frontend_url": "https://explorer-sepolia.inkonchain.com/",
@@ -10022,6 +9716,21 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 778889,
+    "name": "Unitsky String Technologies",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://blockscout.byteboost.ru/api",
+        "frontend_url": "https://blockscout.byteboost.ru/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self-hosted"
       }
     ]
   },
@@ -10094,6 +9803,21 @@
         "type": "blockscout",
         "api_url": "https://bob-sepolia.explorer.gobob.xyz/api",
         "frontend_url": "https://bob-sepolia.explorer.gobob.xyz/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 821207,
+    "name": "GembaBlockchain Testnet",
+    "is_testnet": true,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://testnet.gembascan.io/api",
+        "frontend_url": "https://testnet.gembascan.io/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
@@ -10321,7 +10045,7 @@
         "frontend_url": "https://testnet.arcscan.app/",
         "frontend_url_vanity": null,
         "status": null,
-        "hosted_by": "alchemy"
+        "hosted_by": "blockscout"
       }
     ]
   },
@@ -10334,7 +10058,7 @@
         "type": "routescan",
         "api_url": "https://api.routescan.io/v2/network/testnet/evm/5278000/etherscan/api",
         "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
+        "frontend_url_vanity": "https://5278000.next.routescan.io",
         "status": null,
         "hosted_by": null
       },
@@ -10372,6 +10096,21 @@
         "type": "blockscout",
         "api_url": "https://explorer.saakuru.network/api",
         "frontend_url": "https://explorer.saakuru.network/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
+    "chain_id": 7777001,
+    "name": "SAIHCHAIN GENESIS",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://explorer.saihchain.com/api",
+        "frontend_url": "https://explorer.saihchain.com/",
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
@@ -10420,21 +10159,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 9999999,
-    "name": "Fluence",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://blockscout.mainnet.fluence.dev/api",
-        "frontend_url": "https://blockscout.mainnet.fluence.dev/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "gelato-raas"
       }
     ]
   },
@@ -10614,6 +10338,21 @@
     ]
   },
   {
+    "chain_id": 19251925,
+    "name": "Tipschain",
+    "is_testnet": false,
+    "explorers": [
+      {
+        "type": "blockscout",
+        "api_url": "https://scan.tipschain.online/api",
+        "frontend_url": "https://scan.tipschain.online/",
+        "frontend_url_vanity": null,
+        "status": null,
+        "hosted_by": "self"
+      }
+    ]
+  },
+  {
     "chain_id": 20180427,
     "name": "Stability Testnet",
     "is_testnet": true,
@@ -10723,36 +10462,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "self"
-      }
-    ]
-  },
-  {
-    "chain_id": 34949059,
-    "name": "Citronus Citro",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://test.citronus.com/api",
-        "frontend_url": "https://test.citronus.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "gelato-raas"
-      }
-    ]
-  },
-  {
-    "chain_id": 52164803,
-    "name": "Fluence Testnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://blockscout.testnet.fluence.dev/api",
-        "frontend_url": "https://blockscout.testnet.fluence.dev/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "gelato-raas"
       }
     ]
   },
@@ -10900,96 +10609,6 @@
     ]
   },
   {
-    "chain_id": 420420417,
-    "name": "PaseoHub",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://polkadot.testnet.routescan.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 420420418,
-    "name": "Kusama",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/420420418/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://kusama.routescan.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 420420419,
-    "name": "Polkadot",
-    "is_testnet": false,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/mainnet/evm/420420419/etherscan/api",
-        "frontend_url": "https://routescan.io",
-        "frontend_url_vanity": "https://polkadot.routescan.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 420420421,
-    "name": "Westend",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/420420421/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": "https://420420421.next.routescan.io",
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 531050104,
-    "name": "Sophon",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/531050104/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
-    "chain_id": 531050204,
-    "name": "Sophon OS Testnet",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "routescan",
-        "api_url": "https://api.routescan.io/v2/network/testnet/evm/531050204/etherscan/api",
-        "frontend_url": "https://testnet.routescan.io",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": null
-      }
-    ]
-  },
-  {
     "chain_id": 666666666,
     "name": "Degen Chain",
     "is_testnet": false,
@@ -11001,21 +10620,6 @@
         "frontend_url_vanity": null,
         "status": null,
         "hosted_by": "alchemy"
-      }
-    ]
-  },
-  {
-    "chain_id": 686669576,
-    "name": "Polygon CDK Stavanger",
-    "is_testnet": true,
-    "explorers": [
-      {
-        "type": "blockscout",
-        "api_url": "https://polygon-cdk-stavanger.blockscout.com/api",
-        "frontend_url": "https://polygon-cdk-stavanger.blockscout.com/",
-        "frontend_url_vanity": null,
-        "status": null,
-        "hosted_by": "blockscout"
       }
     ]
   },
