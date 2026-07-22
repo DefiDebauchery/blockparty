@@ -10,7 +10,7 @@ caching for async and sync pool subclasses.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, TypeVar, Generic
 
 from pydantic import BaseModel
 
@@ -281,8 +281,9 @@ def is_auth_error(error: Exception) -> bool:
 # Pool base class
 # ---------------------------------------------------------------------------
 
+ClientT = TypeVar("ClientT")
 
-class BlockpartyPoolBase:
+class BlockpartyPoolBase(Generic[ClientT]):
     """Shared base for async and sync connection pools.
 
     Handles provider/credential resolution, client caching, and URL building.
@@ -314,9 +315,9 @@ class BlockpartyPoolBase:
         self._http_backend = http_backend
         self._cache_ttl = cache_ttl
         self._registry = registry or ChainRegistry.load()
-        self._clients: dict[int, Any] = {}
+        self._clients: dict[int, ClientT] = {}
 
-    def _get_client(self, chain_id: int) -> Any:
+    def get_client(self, chain_id: int) -> ClientT:
         """Get or create a cached client for this chain."""
         if chain_id not in self._clients:
             self._clients[chain_id] = self._client_class(
@@ -330,7 +331,7 @@ class BlockpartyPoolBase:
 
     def urls(self, chain_id: int) -> ExplorerURLs:
         """Get a URL builder for the preferred explorer on this chain."""
-        return self._get_client(chain_id).urls
+        return self.get_client(chain_id).urls
 
     def urls_for(self, chain_id: int, explorer_type: ExplorerType | None) -> ExplorerURLs:
         """Get a URL builder for the explorer that actually served a response.
@@ -341,4 +342,4 @@ class BlockpartyPoolBase:
             urls = pool.urls_for(8453, resp.provider)
             print(urls.tx(resp.result[0].hash))
         """
-        return self._get_client(chain_id).urls_for(explorer_type)
+        return self.get_client(chain_id).urls_for(explorer_type)

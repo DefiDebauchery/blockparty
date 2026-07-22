@@ -36,7 +36,7 @@ from blockparty.pool._base import BlockpartyPoolBase, ProviderCredential, Provid
 from blockparty.registry.chain_registry import ChainRegistry
 
 
-class AsyncBlockpartyPool(BlockpartyPoolBase):
+class AsyncBlockpartyPool(BlockpartyPoolBase[AsyncBlockpartyClient]):
     """Async connection pool — multi-chain, multi-credential, fallback-aware.
 
     Creates and caches :class:`AsyncBlockpartyClient` instances per chain.
@@ -103,7 +103,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ExplorerResponse[InternalTransaction]:
         """Fetch internal transactions with provider fallback."""
-        return await self._get_client(chain_id).get_internal_transactions(
+        return await self.get_client(chain_id).get_internal_transactions(
             address=address,
             start_block=start_block,
             end_block=end_block,
@@ -126,7 +126,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ExplorerResponse[NormalTransaction]:
         """Fetch normal transactions with provider fallback."""
-        return await self._get_client(chain_id).get_normal_transactions(
+        return await self.get_client(chain_id).get_normal_transactions(
             address=address,
             start_block=start_block,
             end_block=end_block,
@@ -145,7 +145,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch native token balance with provider fallback."""
-        return await self._get_client(chain_id).get_balance(
+        return await self.get_client(chain_id).get_balance(
             address=address,
             tag=tag,
             force_refresh=force_refresh,
@@ -159,7 +159,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ScalarResponse:
         """Fetch contract ABI with provider fallback."""
-        return await self._get_client(chain_id).get_contract_abi(
+        return await self.get_client(chain_id).get_contract_abi(
             address=address,
             force_refresh=force_refresh,
         )
@@ -172,7 +172,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ExplorerResponse[ContractSourceCode]:
         """Fetch contract source code with provider fallback."""
-        return await self._get_client(chain_id).get_contract_source_code(
+        return await self.get_client(chain_id).get_contract_source_code(
             address=address,
             force_refresh=force_refresh,
         )
@@ -184,7 +184,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ObjectResponse[EthPrice]:
         """Fetch native token price with provider fallback."""
-        return await self._get_client(chain_id).get_eth_price(
+        return await self.get_client(chain_id).get_eth_price(
             force_refresh=force_refresh,
         )
 
@@ -195,7 +195,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         force_refresh: bool = False,
     ) -> ObjectResponse[GasOracle]:
         """Fetch gas oracle with provider fallback."""
-        return await self._get_client(chain_id).get_gas_oracle(
+        return await self.get_client(chain_id).get_gas_oracle(
             force_refresh=force_refresh,
         )
 
@@ -213,7 +213,7 @@ class AsyncBlockpartyPool(BlockpartyPoolBase):
         **kwargs: Any,
     ) -> ExplorerResponse[EventLog]:
         """Fetch event logs with provider fallback."""
-        return await self._get_client(chain_id).get_logs(
+        return await self.get_client(chain_id).get_logs(
             address=address,
             from_block=from_block,
             to_block=to_block,
