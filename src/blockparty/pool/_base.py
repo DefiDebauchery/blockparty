@@ -10,7 +10,7 @@ caching for async and sync pool subclasses.
 
 from __future__ import annotations
 
-from typing import Any, TypeVar, Generic
+from typing import Any, Generic, TypeVar
 
 from pydantic import BaseModel
 
@@ -282,6 +282,7 @@ def is_auth_error(error: Exception) -> bool:
 # ---------------------------------------------------------------------------
 
 ClientT = TypeVar("ClientT")
+
 
 class BlockpartyPoolBase(Generic[ClientT]):
     """Shared base for async and sync connection pools.
